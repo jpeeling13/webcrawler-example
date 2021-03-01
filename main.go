@@ -33,7 +33,7 @@ func main() {
 		log.Fatalf("status code error: %d %s", httpRes.StatusCode, httpRes.Status)
 	}
 
-	fmt.Println(httpRes.StatusCode)
+	fmt.Println("Response Code: ", httpRes.StatusCode)
 
 	defer httpRes.Body.Close()
 	initialSrc, err := goquery.NewDocumentFromReader(httpRes.Body)

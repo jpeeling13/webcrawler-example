@@ -9,31 +9,35 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-type Post struct {
+type Stock struct {
 	Url            string
-	Title          string
-	User           string
-	CommentsURL    string
-	CrawledAt      time.Time
-	DescriptionSrc string
+	TickerSymbol   string
+	CompanyName    string
+	MarketCap string
+	CurrentPrice string
+	NextEarningsDate   string
+	PerformanceOutlookShort string
+	PerformanceOutlookMid string
+	PerformanceOutlookLong string
+	AnalystPriceTarget int64
+	NumberOfAnalysts int64
+	RecommendationRating int64
+	CompanyAddress string
+	CompanyDescription string
+	CrawledDtm      time.Time
 }
 
-var Posts []Post
-
 func main() {
-	// Get the src at reddit.com/r/programming
-
-	httpRes, err := http.Get("https://www.reddit.com")
+	// Get the src at yahoo finance where the earnings calendar is, for a particular date
+	httpRes, err := http.Get("https://finance.yahoo.com/calendar/earnings?from=2021-02-28&to=2021-03-06&day=2021-03-02")
 
 	if err != nil {
-		log.Fatal("Could not reach reddit: ", err)
+		log.Fatal("Could not reach yahoo: ", err)
 	}
 
 	if httpRes.StatusCode != 200 {
 		log.Fatalf("status code error: %d %s", httpRes.StatusCode, httpRes.Status)
 	}
-
-	fmt.Println("Response Code: ", httpRes.StatusCode)
 
 	defer httpRes.Body.Close()
 	initialSrc, err := goquery.NewDocumentFromReader(httpRes.Body)
@@ -41,30 +45,11 @@ func main() {
 		log.Fatal("Could not resolve response: ", err)
 	}
 
-	firstPost := Post{}
-	firstPostSrc := initialSrc.Find(".scrollerItem").First()
-	fmt.Println(firstPostSrc.Html())
+	fmt.Println(initialSrc.Html())
 
-	firstPost.CrawledAt = time.Now()
-	firstPost.Title = firstPostSrc.Find("._eYtD2XCVieq6emjKBH3m").Text()
-	firstPost.Url = firstPostSrc.Find(".SQnoC3ObvgnGjWt90zD9Z").AttrOr("href", "")
-	userHtml, err := firstPostSrc.Find(".oQctV4n0yUb0uiHDdGnmE").Html()
-	if err != nil {
-		fmt.Println("User selector is wrong")
-		log.Fatal(err)
-	}
-	fmt.Println("The User Html: ", userHtml)
-	firstPost.User = userHtml
-
-	fmt.Printf("First Post - Title: %v, Url: %v, User: %v", firstPost.Title, firstPost.Url, firstPost.User)
-
-	// use goquery to get the first Post
-	// Visit the first post to get the Description Src
-
-	// ---- REPEAT ----
-	// start hitting the API to load posts (starting with first ID in the initial HTML)
-	// convert the returned JSON to posts (skip sponsored content)
-	// Visit each permalink URL to get the Description Src
-	// ---- END REPEAT ----
+	// Refactor the above code to use polly to visit yahoo finance where the earnings calendar is, for a particular date (see above url)
+	// Collect the list of stocks, initializing each one in a map
+	// Visit each stock ticker page and collect the relevant information and update each map item
+	// Sort the list by some criteria and spit out
 
 }

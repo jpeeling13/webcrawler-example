@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gocolly/colly/v2"
 	"log"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -30,6 +32,8 @@ type Stock struct {
 	CrawledDtm      time.Time
 }
 
+var mu sync.Mutex
+
 func main() {
 	var stockData = make(map [string]*Stock)
 
@@ -37,13 +41,15 @@ func main() {
 		colly.UserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36"),
 		colly.AllowedDomains("finance.yahoo.com"),
 		colly.MaxBodySize(0),
-		colly.Async(false),
+		colly.AllowURLRevisit(),
+		colly.Async(true),
 	)
 
 	// Set max Parallelism and introduce a Random Delay
 	c.Limit(&colly.LimitRule{
+		DomainGlob: "*",
 		Parallelism: 2,
-		Delay: 5 * time.Second,
+		Delay: 100 * time.Millisecond,
 	})
 
 	log.Println("User Agent: ", c.UserAgent)
@@ -67,10 +73,11 @@ func main() {
 		e.Request.Visit("https://finance.yahoo.com" + temp.Url)
 	})
 
-	// Unique Identifier for the Individual Stock Quote Page
 	// On each stock ticker page collect the relevant information and update each map item
 	c.OnHTML(".finance.US", func(e *colly.HTMLElement) {
-		if !strings.Contains(e.Request.URL.Path, "/quote/") {
+
+		// Skip this callback if we are on the earnings calendar page
+		if !strings.Contains(e.Request.URL.Path, "/quote/"){
 			return
 		}
 
@@ -78,6 +85,8 @@ func main() {
 		stockNameTickerString := e.ChildText("#quote-header-info h1")
 		justTicker :=stockNameTickerString[strings.Index(stockNameTickerString, "(")+1:strings.Index(stockNameTickerString, ")")]
 		currStock := stockData[justTicker]
+		log.Println(currStock.TickerSymbol)
+
 
 		// Capture current price
 		priceS := e.ChildText(`#quote-header-info > div:nth-child(3) > div > div > span:first-child`)
@@ -101,40 +110,34 @@ func main() {
 
 		// Capture Average Daily Volume
 		avgVolS := strings.Replace(e.ChildText(`td[data-test="AVERAGE_VOLUME_3MONTH-value"]`), ",", "", -1)
-		avgVolI, err := strconv.ParseInt(avgVolS, 10, 64)
-		if err != nil {
-			log.Fatal("Couldn't parse avg vol for ", currStock.TickerSymbol, ": ", err)
+		if avgVolS == "N/A" {
+			currStock.AvgVolume = -1
+		} else {
+			avgVolI, err := strconv.ParseInt(avgVolS, 10, 64)
+			if err != nil {
+				log.Fatal("Couldn't parse avg vol for ", currStock.TickerSymbol, ": ", err)
+			}
+			currStock.AvgVolume = avgVolI
 		}
-		currStock.AvgVolume = avgVolI
 
-		// Visit the Technical Page
-		e.Request.Visit("https://finance.yahoo.com/chart/" + currStock.TickerSymbol + "?technical=true")
+		// The LAST 3 Stats are not always captured for each stock... why?
+		// Capture Short Term Outlook
+		currStock.PerformanceOutlookShort = e.ChildAttr(`#chrt-evts-mod > div:nth-child(3) > ul > li:first-child > a svg`, "style")
+
+		// Capture Mid Term Outlook
+		currStock.PerformanceOutlookMid = e.ChildAttr(`#chrt-evts-mod > div:nth-child(3) > ul > li:nth-child(2)> a svg`, "style")
+
+		// Capture Short Term Outlook
+		currStock.PerformanceOutlookLong = e.ChildAttr(`#chrt-evts-mod > div:nth-child(3) > ul > li:nth-child(3)> a svg`, "style")
+
 	})
 
-
-	// On each stock Technical page collect the short, mid, and long-term outlook
-	c.OnHTML("#chart-header", func(e *colly.HTMLElement) {
-		if !strings.Contains(e.Request.URL.Path, "chart") {
-			return
-		}
-		log.Println("Finally GOT here")
-		// Get the current stock in the map that matches the one on the ticker page
-		stockNameTickerString := e.ChildText("#chart-header h1 > translate")
-		justTicker :=stockNameTickerString[strings.Index(stockNameTickerString, "(")+1:strings.Index(stockNameTickerString, ")")]
-		currStock := stockData[justTicker]
-		log.Println("Technical Page - Ticker: ", currStock.TickerSymbol)
-	})
-
-
-	c.Visit("https://finance.yahoo.com/calendar/earnings?from=2021-02-28&to=2021-03-06&day=2021-03-03")
+	c.Visit("https://finance.yahoo.com/calendar/earnings?from=2021-02-28&to=2021-03-06&day=2021-03-04")
 	c.Wait()
 
-	//for _, v := range stockData {
-	//	log.Println(v.CompanyName, v.TickerSymbol, v.NextEarningsCallTime, v.NextEarningsEstimate, v.Url)
-	//}
-
-	log.Println("Total Stocks: ", len(stockData))
-
-	// Sort the list by some criteria and spit out
-
+	for _, v := range stockData {
+		fmt.Println(v.TickerSymbol, " - ", v.PerformanceOutlookShort)
+		fmt.Println(v.TickerSymbol, " - ", v.PerformanceOutlookMid)
+		fmt.Println(v.TickerSymbol, " - ", v.PerformanceOutlookLong)
+	}
 }

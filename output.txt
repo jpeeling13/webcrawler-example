@@ -1,0 +1,452 @@
+Total Stocks:  41
+RPKIF  -  /quote/RPKIF?p=RPKIF
+RPKIF  - Current Price:  53.1
+RPKIF  - Previous Day Volume:  5
+RPKIF  - Avg. Volume:  10
+RPKIF  - Sector:  
+RPKIF  - Sector Performance (short):  
+RPKIF  - Stock Performance (short):  
+RPKIF  - Sector Performance (mid):  
+RPKIF  - Stock Performance (mid):  
+RPKIF  - Sector Performance (long):  
+RPKIF  - Stock Performance (long):  
+XPL  -  /quote/XPL?p=XPL
+XPL  - Current Price:  0.981
+XPL  - Previous Day Volume:  5897326
+XPL  - Avg. Volume:  3898433
+XPL  - Sector:  Basic Materials
+XPL  - Sector Performance (short):  Bullish
+XPL  - Stock Performance (short):  Bearish
+XPL  - Sector Performance (mid):  Bearish
+XPL  - Stock Performance (mid):  Bearish
+XPL  - Sector Performance (long):  Bullish
+XPL  - Stock Performance (long):  Bullish
+OFS  -  /quote/OFS?p=OFS
+OFS  - Current Price:  8.76
+OFS  - Previous Day Volume:  31689
+OFS  - Avg. Volume:  50845
+OFS  - Sector:  Financial Services
+OFS  - Sector Performance (short):  Bearish
+OFS  - Stock Performance (short):  Bearish
+OFS  - Sector Performance (mid):  Bullish
+OFS  - Stock Performance (mid):  Bullish
+OFS  - Sector Performance (long):  Bullish
+OFS  - Stock Performance (long):  Bullish
+FLMN  -  /quote/FLMN?p=FLMN
+FLMN  - Current Price:  4.42
+FLMN  - Previous Day Volume:  337273
+FLMN  - Avg. Volume:  324176
+FLMN  - Sector:  Energy
+FLMN  - Sector Performance (short):  Bullish
+FLMN  - Stock Performance (short):  Bearish
+FLMN  - Sector Performance (mid):  Bullish
+FLMN  - Stock Performance (mid):  Bullish
+FLMN  - Sector Performance (long):  Bullish
+FLMN  - Stock Performance (long):  Bullish
+NWPX  -  /quote/NWPX?p=NWPX
+NWPX  - Current Price:  33.84
+NWPX  - Previous Day Volume:  56534
+NWPX  - Avg. Volume:  45244
+NWPX  - Sector:  Industrials
+NWPX  - Sector Performance (short):  Bearish
+NWPX  - Stock Performance (short):  Bearish
+NWPX  - Sector Performance (mid):  Bearish
+NWPX  - Stock Performance (mid):  Bullish
+NWPX  - Sector Performance (long):  Bullish
+NWPX  - Stock Performance (long):  Bullish
+INTT  -  /quote/INTT?p=INTT
+INTT  - Current Price:  10.21
+INTT  - Previous Day Volume:  243722
+INTT  - Avg. Volume:  61722
+INTT  - Sector:  Technology
+INTT  - Sector Performance (short):  Bearish
+INTT  - Stock Performance (short):  Bullish
+INTT  - Sector Performance (mid):  Bearish
+INTT  - Stock Performance (mid):  Bullish
+INTT  - Sector Performance (long):  Neutral
+INTT  - Stock Performance (long):  Bullish
+GPORQ  -  /quote/GPORQ?p=GPORQ
+GPORQ  - Current Price:  0.0785
+GPORQ  - Previous Day Volume:  1315022
+GPORQ  - Avg. Volume:  3662872
+GPORQ  - Sector:  Energy
+GPORQ  - Sector Performance (short):  Bullish
+GPORQ  - Stock Performance (short):  Bullish
+GPORQ  - Sector Performance (mid):  Bullish
+GPORQ  - Stock Performance (mid):  Bearish
+GPORQ  - Sector Performance (long):  Bullish
+GPORQ  - Stock Performance (long):  Neutral
+FLRAF  -  /quote/FLRAF?p=FLRAF
+FLRAF  - Current Price:  4.3
+FLRAF  - Previous Day Volume:  805
+FLRAF  - Avg. Volume:  30
+FLRAF  - Sector:  
+FLRAF  - Sector Performance (short):  
+FLRAF  - Stock Performance (short):  
+FLRAF  - Sector Performance (mid):  
+FLRAF  - Stock Performance (mid):  
+FLRAF  - Sector Performance (long):  
+FLRAF  - Stock Performance (long):  
+GMRE  -  /quote/GMRE?p=GMRE
+GMRE  - Current Price:  14.08
+GMRE  - Previous Day Volume:  311867
+GMRE  - Avg. Volume:  397935
+GMRE  - Sector:  Real Estate
+GMRE  - Sector Performance (short):  Bearish
+GMRE  - Stock Performance (short):  Bullish
+GMRE  - Sector Performance (mid):  Bearish
+GMRE  - Stock Performance (mid):  Bullish
+GMRE  - Sector Performance (long):  Bullish
+GMRE  - Stock Performance (long):  Bullish
+GCP  -  /quote/GCP?p=GCP
+GCP  - Current Price:  25.92
+GCP  - Previous Day Volume:  501018
+GCP  - Avg. Volume:  222415
+GCP  - Sector:  Basic Materials
+GCP  - Sector Performance (short):  Bullish
+GCP  - Stock Performance (short):  Bearish
+GCP  - Sector Performance (mid):  Bearish
+GCP  - Stock Performance (mid):  Bearish
+GCP  - Sector Performance (long):  Bullish
+GCP  - Stock Performance (long):  Bearish
+BIG  -  /quote/BIG?p=BIG
+BIG  - Current Price:  65.39
+BIG  - Previous Day Volume:  884556
+BIG  - Avg. Volume:  1466415
+BIG  - Sector:  Consumer Defensive
+BIG  - Sector Performance (short):  Bullish
+BIG  - Stock Performance (short):  Bullish
+BIG  - Sector Performance (mid):  Bearish
+BIG  - Stock Performance (mid):  Bullish
+BIG  - Sector Performance (long):  Bullish
+BIG  - Stock Performance (long):  Bullish
+GSX  -  /quote/GSX?p=GSX
+GSX  - Current Price:  88.62
+GSX  - Previous Day Volume:  4124500
+GSX  - Avg. Volume:  6582355
+GSX  - Sector:  Consumer Defensive
+GSX  - Sector Performance (short):  Bullish
+GSX  - Stock Performance (short):  Bullish
+GSX  - Sector Performance (mid):  Bearish
+GSX  - Stock Performance (mid):  Bullish
+GSX  - Sector Performance (long):  Bullish
+GSX  - Stock Performance (long):  Bullish
+OPTT  -  /quote/OPTT?p=OPTT
+OPTT  - Current Price:  3.54
+OPTT  - Previous Day Volume:  5468033
+OPTT  - Avg. Volume:  10206672
+OPTT  - Sector:  Industrials
+OPTT  - Sector Performance (short):  Bearish
+OPTT  - Stock Performance (short):  Bearish
+OPTT  - Sector Performance (mid):  Bearish
+OPTT  - Stock Performance (mid):  Bearish
+OPTT  - Sector Performance (long):  Bullish
+OPTT  - Stock Performance (long):  Bullish
+FRPH  -  /quote/FRPH?p=FRPH
+FRPH  - Current Price:  50.77
+FRPH  - Previous Day Volume:  14365
+FRPH  - Avg. Volume:  14693
+FRPH  - Sector:  Real Estate
+FRPH  - Sector Performance (short):  Bearish
+FRPH  - Stock Performance (short):  Bullish
+FRPH  - Sector Performance (mid):  Bearish
+FRPH  - Stock Performance (mid):  Bullish
+FRPH  - Sector Performance (long):  Bullish
+FRPH  - Stock Performance (long):  Bullish
+HRTG  -  /quote/HRTG?p=HRTG
+HRTG  - Current Price:  11.3
+HRTG  - Previous Day Volume:  182548
+HRTG  - Avg. Volume:  168328
+HRTG  - Sector:  Financial Services
+HRTG  - Sector Performance (short):  Bearish
+HRTG  - Stock Performance (short):  Bearish
+HRTG  - Sector Performance (mid):  Bullish
+HRTG  - Stock Performance (mid):  Bullish
+HRTG  - Sector Performance (long):  Bullish
+HRTG  - Stock Performance (long):  Bullish
+MICT  -  /quote/MICT?p=MICT
+MICT  - Current Price:  1.91
+MICT  - Previous Day Volume:  7158448
+MICT  - Avg. Volume:  6421640
+MICT  - Sector:  Technology
+MICT  - Sector Performance (short):  Bearish
+MICT  - Stock Performance (short):  Bearish
+MICT  - Sector Performance (mid):  Bearish
+MICT  - Stock Performance (mid):  Bearish
+MICT  - Sector Performance (long):  Neutral
+MICT  - Stock Performance (long):  Bearish
+MLR  -  /quote/MLR?p=MLR
+MLR  - Current Price:  44.73
+MLR  - Previous Day Volume:  76383
+MLR  - Avg. Volume:  40871
+MLR  - Sector:  Consumer Cyclical
+MLR  - Sector Performance (short):  Bearish
+MLR  - Stock Performance (short):  Bullish
+MLR  - Sector Performance (mid):  Bearish
+MLR  - Stock Performance (mid):  Bullish
+MLR  - Sector Performance (long):  Bullish
+MLR  - Stock Performance (long):  Bullish
+CULP  -  /quote/CULP?p=CULP
+CULP  - Current Price:  16.6
+CULP  - Previous Day Volume:  27762
+CULP  - Avg. Volume:  39932
+CULP  - Sector:  Consumer Cyclical
+CULP  - Sector Performance (short):  Bearish
+CULP  - Stock Performance (short):  Bearish
+CULP  - Sector Performance (mid):  Bearish
+CULP  - Stock Performance (mid):  Bearish
+CULP  - Sector Performance (long):  Bullish
+CULP  - Stock Performance (long):  Neutral
+EQ  -  /quote/EQ?p=EQ
+EQ  - Current Price:  7.66
+EQ  - Previous Day Volume:  247661
+EQ  - Avg. Volume:  754293
+EQ  - Sector:  Healthcare
+EQ  - Sector Performance (short):  Bullish
+EQ  - Stock Performance (short):  Bearish
+EQ  - Sector Performance (mid):  Bearish
+EQ  - Stock Performance (mid):  Bullish
+EQ  - Sector Performance (long):  Bullish
+EQ  - Stock Performance (long):  Bullish
+HIBB  -  /quote/HIBB?p=HIBB
+HIBB  - Current Price:  63.87
+HIBB  - Previous Day Volume:  655184
+HIBB  - Avg. Volume:  490325
+HIBB  - Sector:  Consumer Cyclical
+HIBB  - Sector Performance (short):  Bearish
+HIBB  - Stock Performance (short):  Bearish
+HIBB  - Sector Performance (mid):  Bearish
+HIBB  - Stock Performance (mid):  Bullish
+HIBB  - Sector Performance (long):  Bullish
+HIBB  - Stock Performance (long):  Bullish
+IMRA  -  /quote/IMRA?p=IMRA
+IMRA  - Current Price:  9.81
+IMRA  - Previous Day Volume:  186473
+IMRA  - Avg. Volume:  144227
+IMRA  - Sector:  Healthcare
+IMRA  - Sector Performance (short):  Bullish
+IMRA  - Stock Performance (short):  Bearish
+IMRA  - Sector Performance (mid):  Bearish
+IMRA  - Stock Performance (mid):  Bearish
+IMRA  - Sector Performance (long):  Bullish
+IMRA  - Stock Performance (long):  Bearish
+CGGYY  -  /quote/CGGYY?p=CGGYY
+CGGYY  - Current Price:  1.37
+CGGYY  - Previous Day Volume:  15212
+CGGYY  - Avg. Volume:  14037
+CGGYY  - Sector:  Energy
+CGGYY  - Sector Performance (short):  Bullish
+CGGYY  - Stock Performance (short):  Bullish
+CGGYY  - Sector Performance (mid):  Bullish
+CGGYY  - Stock Performance (mid):  Bullish
+CGGYY  - Sector Performance (long):  Bullish
+CGGYY  - Stock Performance (long):  Bearish
+FTSI  -  /quote/FTSI?p=FTSI
+FTSI  - Current Price:  23.69
+FTSI  - Previous Day Volume:  144184
+FTSI  - Avg. Volume:  120900
+FTSI  - Sector:  Energy
+FTSI  - Sector Performance (short):  Bullish
+FTSI  - Stock Performance (short):  Bullish
+FTSI  - Sector Performance (mid):  Bullish
+FTSI  - Stock Performance (mid):  Bullish
+FTSI  - Sector Performance (long):  Bullish
+FTSI  - Stock Performance (long):  Bullish
+OBSV  -  /quote/OBSV?p=OBSV
+OBSV  - Current Price:  3.56
+OBSV  - Previous Day Volume:  2252884
+OBSV  - Avg. Volume:  6400498
+OBSV  - Sector:  Healthcare
+OBSV  - Sector Performance (short):  Bullish
+OBSV  - Stock Performance (short):  Bearish
+OBSV  - Sector Performance (mid):  Bearish
+OBSV  - Stock Performance (mid):  Bullish
+OBSV  - Sector Performance (long):  Bullish
+OBSV  - Stock Performance (long):  Bullish
+SD  -  /quote/SD?p=SD
+SD  - Current Price:  4.23
+SD  - Previous Day Volume:  601699
+SD  - Avg. Volume:  544372
+SD  - Sector:  Energy
+SD  - Sector Performance (short):  Bullish
+SD  - Stock Performance (short):  Bearish
+SD  - Sector Performance (mid):  Bullish
+SD  - Stock Performance (mid):  Bearish
+SD  - Sector Performance (long):  Bullish
+SD  - Stock Performance (long):  Bullish
+SFE  -  /quote/SFE?p=SFE
+SFE  - Current Price:  7.92
+SFE  - Previous Day Volume:  107513
+SFE  - Avg. Volume:  117388
+SFE  - Sector:  Financial Services
+SFE  - Sector Performance (short):  Bearish
+SFE  - Stock Performance (short):  Bullish
+SFE  - Sector Performance (mid):  Bullish
+SFE  - Stock Performance (mid):  Bullish
+SFE  - Sector Performance (long):  Bullish
+SFE  - Stock Performance (long):  Bullish
+COE  -  /quote/COE?p=COE
+COE  - Current Price:  23.38
+COE  - Previous Day Volume:  38265
+COE  - Avg. Volume:  35449
+COE  - Sector:  Consumer Defensive
+COE  - Sector Performance (short):  Bullish
+COE  - Stock Performance (short):  Bearish
+COE  - Sector Performance (mid):  Bearish
+COE  - Stock Performance (mid):  Bearish
+COE  - Sector Performance (long):  Bullish
+COE  - Stock Performance (long):  Bullish
+MNDO  -  /quote/MNDO?p=MNDO
+MNDO  - Current Price:  3.05
+MNDO  - Previous Day Volume:  63631
+MNDO  - Avg. Volume:  74700
+MNDO  - Sector:  Technology
+MNDO  - Sector Performance (short):  Bearish
+MNDO  - Stock Performance (short):  Bearish
+MNDO  - Sector Performance (mid):  Bearish
+MNDO  - Stock Performance (mid):  Bullish
+MNDO  - Sector Performance (long):  Neutral
+MNDO  - Stock Performance (long):  Bullish
+ONCY  -  /quote/ONCY?p=ONCY
+ONCY  - Current Price:  2.85
+ONCY  - Previous Day Volume:  880305
+ONCY  - Avg. Volume:  1772277
+ONCY  - Sector:  Healthcare
+ONCY  - Sector Performance (short):  Bullish
+ONCY  - Stock Performance (short):  Bearish
+ONCY  - Sector Performance (mid):  Bearish
+ONCY  - Stock Performance (mid):  Bullish
+ONCY  - Sector Performance (long):  Bullish
+ONCY  - Stock Performance (long):  Bullish
+PKDC  -  /quote/PKDC?p=PKDC
+PKDC  - Current Price:  6.9
+PKDC  - Previous Day Volume:  133
+PKDC  - Avg. Volume:  3857
+PKDC  - Sector:  Energy
+PKDC  - Sector Performance (short):  Bullish
+PKDC  - Stock Performance (short):  Bearish
+PKDC  - Sector Performance (mid):  Bullish
+PKDC  - Stock Performance (mid):  Bearish
+PKDC  - Sector Performance (long):  Bullish
+PKDC  - Stock Performance (long):  Bearish
+RUTH  -  /quote/RUTH?p=RUTH
+RUTH  - Current Price:  24.58
+RUTH  - Previous Day Volume:  506228
+RUTH  - Avg. Volume:  548310
+RUTH  - Sector:  Consumer Cyclical
+RUTH  - Sector Performance (short):  Bearish
+RUTH  - Stock Performance (short):  Bullish
+RUTH  - Sector Performance (mid):  Bearish
+RUTH  - Stock Performance (mid):  Bearish
+RUTH  - Sector Performance (long):  Bullish
+RUTH  - Stock Performance (long):  Bullish
+WPG  -  /quote/WPG?p=WPG
+WPG  - Current Price:  3.39
+WPG  - Previous Day Volume:  43698143
+WPG  - Avg. Volume:  1113964
+WPG  - Sector:  Real Estate
+WPG  - Sector Performance (short):  Bearish
+WPG  - Stock Performance (short):  Bearish
+WPG  - Sector Performance (mid):  Bearish
+WPG  - Stock Performance (mid):  Bearish
+WPG  - Sector Performance (long):  Bullish
+WPG  - Stock Performance (long):  Bearish
+SBOW  -  /quote/SBOW?p=SBOW
+SBOW  - Current Price:  8.19
+SBOW  - Previous Day Volume:  49403
+SBOW  - Avg. Volume:  66735
+SBOW  - Sector:  Energy
+SBOW  - Sector Performance (short):  Bullish
+SBOW  - Stock Performance (short):  Bearish
+SBOW  - Sector Performance (mid):  Bullish
+SBOW  - Stock Performance (mid):  Bullish
+SBOW  - Sector Performance (long):  Bullish
+SBOW  - Stock Performance (long):  Bullish
+GWRS  -  /quote/GWRS?p=GWRS
+GWRS  - Current Price:  17.86
+GWRS  - Previous Day Volume:  32569
+GWRS  - Avg. Volume:  34305
+GWRS  - Sector:  Utilities
+GWRS  - Sector Performance (short):  Bullish
+GWRS  - Stock Performance (short):  Bearish
+GWRS  - Sector Performance (mid):  Bearish
+GWRS  - Stock Performance (mid):  Neutral
+GWRS  - Sector Performance (long):  Bearish
+GWRS  - Stock Performance (long):  Bullish
+OXFD  -  /quote/OXFD?p=OXFD
+OXFD  - Current Price:  21.99
+OXFD  - Previous Day Volume:  808562
+OXFD  - Avg. Volume:  838949
+OXFD  - Sector:  Healthcare
+OXFD  - Sector Performance (short):  Bullish
+OXFD  - Stock Performance (short):  Bullish
+OXFD  - Sector Performance (mid):  Bearish
+OXFD  - Stock Performance (mid):  Bullish
+OXFD  - Sector Performance (long):  Bullish
+OXFD  - Stock Performance (long):  Bullish
+HURC  -  /quote/HURC?p=HURC
+HURC  - Current Price:  36.79
+HURC  - Previous Day Volume:  45059
+HURC  - Avg. Volume:  22037
+HURC  - Sector:  Industrials
+HURC  - Sector Performance (short):  Bearish
+HURC  - Stock Performance (short):  Bullish
+HURC  - Sector Performance (mid):  Bearish
+HURC  - Stock Performance (mid):  Bullish
+HURC  - Sector Performance (long):  Bullish
+HURC  - Stock Performance (long):  Bullish
+DXYN  -  /quote/DXYN?p=DXYN
+DXYN  - Current Price:  3.07
+DXYN  - Previous Day Volume:  165292
+DXYN  - Avg. Volume:  218171
+DXYN  - Sector:  Consumer Cyclical
+DXYN  - Sector Performance (short):  Bearish
+DXYN  - Stock Performance (short):  Bearish
+DXYN  - Sector Performance (mid):  Bearish
+DXYN  - Stock Performance (mid):  Neutral
+DXYN  - Sector Performance (long):  Bullish
+DXYN  - Stock Performance (long):  Bullish
+GLP  -  /quote/GLP?p=GLP
+GLP  - Current Price:  21.04
+GLP  - Previous Day Volume:  103582
+GLP  - Avg. Volume:  119516
+GLP  - Sector:  Energy
+GLP  - Sector Performance (short):  Bullish
+GLP  - Stock Performance (short):  Bullish
+GLP  - Sector Performance (mid):  Bullish
+GLP  - Stock Performance (mid):  Neutral
+GLP  - Sector Performance (long):  Bullish
+GLP  - Stock Performance (long):  Bullish
+SUP  -  /quote/SUP?p=SUP
+SUP  - Current Price:  6.3
+SUP  - Previous Day Volume:  386347
+SUP  - Avg. Volume:  426805
+SUP  - Sector:  Consumer Cyclical
+SUP  - Sector Performance (short):  Bearish
+SUP  - Stock Performance (short):  Bearish
+SUP  - Sector Performance (mid):  Bearish
+SUP  - Stock Performance (mid):  Bullish
+SUP  - Sector Performance (long):  Bullish
+SUP  - Stock Performance (long):  Bullish
+BXC  -  /quote/BXC?p=BXC
+BXC  - Current Price:  37.47
+BXC  - Previous Day Volume:  107678
+BXC  - Avg. Volume:  138527
+BXC  - Sector:  Industrials
+BXC  - Sector Performance (short):  Bearish
+BXC  - Stock Performance (short):  Bearish
+BXC  - Sector Performance (mid):  Bearish
+BXC  - Stock Performance (mid):  Bearish
+BXC  - Sector Performance (long):  Bullish
+BXC  - Stock Performance (long):  Neutral
+CGPVF  -  /quote/CGPVF?p=CGPVF
+CGPVF  - Current Price:  1.14
+CGPVF  - Previous Day Volume:  80000
+CGPVF  - Avg. Volume:  1355
+CGPVF  - Sector:  
+CGPVF  - Sector Performance (short):  
+CGPVF  - Stock Performance (short):  
+CGPVF  - Sector Performance (mid):  
+CGPVF  - Stock Performance (mid):  
+CGPVF  - Sector Performance (long):  
+CGPVF  - Stock Performance (long):  

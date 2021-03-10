@@ -1,12 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gocolly/colly/v2"
 	"log"
+	"math/rand"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -21,9 +22,13 @@ type Stock struct {
 	NextEarningsDate   string
 	NextEarningsCallTime string
 	NextEarningsEstimate string
-	PerformanceOutlookShort string
-	PerformanceOutlookMid string
-	PerformanceOutlookLong string
+	Sector string
+	StockPerformanceOutlookShort string
+	StockPerformanceOutlookMid string
+	StockPerformanceOutlookLong string
+	SectorPerformanceOutlookShort string
+	SectorPerformanceOutlookMid string
+	SectorPerformanceOutlookLong string
 	AnalystPriceTarget int64
 	NumberOfAnalysts int64
 	RecommendationRating int64
@@ -32,24 +37,32 @@ type Stock struct {
 	CrawledDtm      time.Time
 }
 
-var mu sync.Mutex
+const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+func RandomString() string {
+	b := make([]byte, rand.Intn(10)+10)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+	return string(b)
+}
 
 func main() {
 	var stockData = make(map [string]*Stock)
 
 	c := colly.NewCollector(
-		colly.UserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36"),
 		colly.AllowedDomains("finance.yahoo.com"),
 		colly.MaxBodySize(0),
 		colly.AllowURLRevisit(),
 		colly.Async(true),
 	)
 
-	// Set max Parallelism and introduce a Random Delay
+	// Set max Parallelism and Delay of 10 seconds
+	// Annoying, but seems that Yahoo has a strict rate limit for wherever it's grabbing the data to display the
+	// Short, Mid, and Long term technicals. Most likely is tied by IP address
 	c.Limit(&colly.LimitRule{
 		DomainGlob: "*",
-		Parallelism: 2,
-		Delay: 100 * time.Millisecond,
+		Parallelism: 1,
+		Delay: 10 * time.Second,
 	})
 
 	log.Println("User Agent: ", c.UserAgent)
@@ -57,7 +70,7 @@ func main() {
 	// Before making a request print "Visiting ..."
 	c.OnRequest(func(r *colly.Request) {
 		log.Println("Visiting", r.URL.String())
-
+		r.Headers.Set("User-Agent", RandomString())
 	})
 
 	// Unique Identifier for the Earnings Page
@@ -70,11 +83,11 @@ func main() {
 		temp.NextEarningsEstimate = e.ChildText(`td[aria-label="EPS Estimate"]`)
 		temp.Url =e.ChildAttr("td>a", "href")
 		stockData[temp.TickerSymbol] = &temp
-		e.Request.Visit("https://finance.yahoo.com" + temp.Url)
+		c.Visit("https://finance.yahoo.com" + temp.Url)
 	})
 
 	// On each stock ticker page collect the relevant information and update each map item
-	c.OnHTML(".finance.US", func(e *colly.HTMLElement) {
+	c.OnHTML("body", func(e *colly.HTMLElement) {
 
 		// Skip this callback if we are on the earnings calendar page
 		if !strings.Contains(e.Request.URL.Path, "/quote/"){
@@ -87,6 +100,8 @@ func main() {
 		currStock := stockData[justTicker]
 		log.Println(currStock.TickerSymbol)
 
+		// Capture Crawled DTM
+		currStock.CrawledDtm = time.Now()
 
 		// Capture current price
 		priceS := e.ChildText(`#quote-header-info > div:nth-child(3) > div > div > span:first-child`)
@@ -119,25 +134,92 @@ func main() {
 			}
 			currStock.AvgVolume = avgVolI
 		}
+	})
 
-		// The LAST 3 Stats are not always captured for each stock... why?
-		// Capture Short Term Outlook
-		currStock.PerformanceOutlookShort = e.ChildAttr(`#chrt-evts-mod > div:nth-child(3) > ul > li:first-child > a svg`, "style")
+	// On each stock ticker page within the script tag collect the technical indicator information
+	c.OnHTML(`script:contains("ResearchPageStore")`, func(e *colly.HTMLElement) {
 
-		// Capture Mid Term Outlook
-		currStock.PerformanceOutlookMid = e.ChildAttr(`#chrt-evts-mod > div:nth-child(3) > ul > li:nth-child(2)> a svg`, "style")
+		// Get the ticker symbol from the ticker
+		scriptTag := e.DOM.Text()
+		ticker := scriptTag[strings.Index(scriptTag,"\"originUrl\":\"\\u002Fquote\\u002F")+30:strings.Index(scriptTag, "?p=")]
+		log.Println("Got ticker from script tag: ", ticker)
+		currStock := stockData[ticker]
 
-		// Capture Short Term Outlook
-		currStock.PerformanceOutlookLong = e.ChildAttr(`#chrt-evts-mod > div:nth-child(3) > ul > li:nth-child(3)> a svg`, "style")
 
+		contextObject := scriptTag[strings.Index(scriptTag, "\"context\"")+10:strings.LastIndex(scriptTag, "\"plugins\"")-1]
+		var contextObjectAsStruct interface{}
+		err := json.Unmarshal([]byte(contextObject), &contextObjectAsStruct)
+		if err !=nil {
+			log.Fatal("Could not Unmarshal Script Context Object", err)
+		}
+
+		if researchPageStore, ok := contextObjectAsStruct.(map[string]interface{})["dispatcher"].(map[string]interface{})["stores"].(map[string]interface{})["ResearchPageStore"].(map[string]interface{}); ok {
+
+			if technicalInsights, ok := researchPageStore["technicalInsights"].(map[string]interface{}); ok{
+
+				if ticker, ok := technicalInsights[currStock.TickerSymbol].(map[string]interface{}); ok {
+
+					if instrumentInfo, ok := ticker["instrumentInfo"].(map[string]interface{}); ok {
+						// Capture stock short term outlook from script tag
+						shortTermOutlook := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["shortTermOutlook"].(map[string]interface{})["direction"])
+						currStock.StockPerformanceOutlookShort = shortTermOutlook
+
+						// Capture stock short term outlook from script tag
+						midTermOutlook := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["intermediateTermOutlook"].(map[string]interface{})["direction"])
+						currStock.StockPerformanceOutlookMid = midTermOutlook
+
+						// Capture stock short term outlook from script tag
+						longTermOutlook := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["longTermOutlook"].(map[string]interface{})["direction"])
+						currStock.StockPerformanceOutlookLong = longTermOutlook
+
+						// Capture Sector from script tag
+						sector := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["sector"])
+						currStock.Sector = sector
+
+						// Capture sector short term outlook from script tag
+						secShortTermOutlook := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["shortTermOutlook"].(map[string]interface{})["sectorDirection"])
+						currStock.SectorPerformanceOutlookShort = secShortTermOutlook
+
+						// Capture sector short term outlook from script tag
+						secMidTermOutlook := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["intermediateTermOutlook"].(map[string]interface{})["sectorDirection"])
+						currStock.SectorPerformanceOutlookMid = secMidTermOutlook
+
+						// Capture sector short term outlook from script tag
+						secLongTermOutlook := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["longTermOutlook"].(map[string]interface{})["sectorDirection"])
+						currStock.SectorPerformanceOutlookLong = secLongTermOutlook
+					} else {
+							log.Println(currStock.TickerSymbol, ": No instrumentInfo in Source")
+					}
+				} else {
+					if strings.Contains(scriptTag, "LOAD_TECH_INSIGHTS_FAIL") {
+						log.Println(currStock.TickerSymbol, ": COULD NOT LOAD RESEARCH PAGE STORE... SKIP")
+					} else {
+						log.Println(currStock.TickerSymbol, ": No Ticker in Source")
+					}
+				}
+			} else {
+				log.Fatal(currStock.TickerSymbol, ": No Technical Insights in Source")
+			}
+		} else {
+			log.Fatal(currStock.TickerSymbol, ": No Research Page Store in Source")
+		}
 	})
 
 	c.Visit("https://finance.yahoo.com/calendar/earnings?from=2021-02-28&to=2021-03-06&day=2021-03-04")
 	c.Wait()
 
+	fmt.Println("Total Stocks: ", len(stockData))
 	for _, v := range stockData {
-		fmt.Println(v.TickerSymbol, " - ", v.PerformanceOutlookShort)
-		fmt.Println(v.TickerSymbol, " - ", v.PerformanceOutlookMid)
-		fmt.Println(v.TickerSymbol, " - ", v.PerformanceOutlookLong)
+		fmt.Println(v.TickerSymbol, " - ", v.Url)
+		fmt.Println(v.TickerSymbol, " - Current Price: ", v.CurrentPrice)
+		fmt.Println(v.TickerSymbol, " - Previous Day Volume: ", v.PrevDayVolume)
+		fmt.Println(v.TickerSymbol, " - Avg. Volume: ", v.AvgVolume)
+		fmt.Println(v.TickerSymbol, " - Sector: ", v.Sector)
+		fmt.Println(v.TickerSymbol, " - Sector Performance (short): ", v.SectorPerformanceOutlookShort)
+		fmt.Println(v.TickerSymbol, " - Stock Performance (short): ", v.StockPerformanceOutlookShort)
+		fmt.Println(v.TickerSymbol, " - Sector Performance (mid): ", v.SectorPerformanceOutlookMid)
+		fmt.Println(v.TickerSymbol, " - Stock Performance (mid): ", v.StockPerformanceOutlookMid)
+		fmt.Println(v.TickerSymbol, " - Sector Performance (long): ", v.SectorPerformanceOutlookLong)
+		fmt.Println(v.TickerSymbol, " - Stock Performance (long): ", v.StockPerformanceOutlookLong)
 	}
 }

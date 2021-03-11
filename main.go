@@ -56,13 +56,13 @@ func main() {
 		colly.Async(true),
 	)
 
-	// Set max Parallelism and Delay of 10 seconds
+	// Set max Parallelism and Delay of 7 seconds
 	// Annoying, but seems that Yahoo has a strict rate limit for wherever it's grabbing the data to display the
 	// Short, Mid, and Long term technicals. Most likely is tied by IP address
 	c.Limit(&colly.LimitRule{
 		DomainGlob: "*",
 		Parallelism: 1,
-		Delay: 10 * time.Second,
+		Delay: 7 * time.Second,
 	})
 
 	log.Println("User Agent: ", c.UserAgent)
@@ -134,21 +134,12 @@ func main() {
 			}
 			currStock.AvgVolume = avgVolI
 		}
-	})
 
-	// On each stock ticker page within the script tag collect the technical indicator information
-	c.OnHTML(`script:contains("ResearchPageStore")`, func(e *colly.HTMLElement) {
-
-		// Get the ticker symbol from the ticker
-		scriptTag := e.DOM.Text()
-		ticker := scriptTag[strings.Index(scriptTag,"\"originUrl\":\"\\u002Fquote\\u002F")+30:strings.Index(scriptTag, "?p=")]
-		log.Println("Got ticker from script tag: ", ticker)
-		currStock := stockData[ticker]
-
-
-		contextObject := scriptTag[strings.Index(scriptTag, "\"context\"")+10:strings.LastIndex(scriptTag, "\"plugins\"")-1]
+		// Get the React Stock Data Script Tag as text, and unmarshal into an object from which we can retrieve more stock data values
+		stockDataScriptTag := e.ChildText(`script:contains("ResearchPageStore")`)
+		contextObject := stockDataScriptTag[strings.Index(stockDataScriptTag, "\"context\"")+10:strings.LastIndex(stockDataScriptTag, "\"plugins\"")-1]
 		var contextObjectAsStruct interface{}
-		err := json.Unmarshal([]byte(contextObject), &contextObjectAsStruct)
+		err = json.Unmarshal([]byte(contextObject), &contextObjectAsStruct)
 		if err !=nil {
 			log.Fatal("Could not Unmarshal Script Context Object", err)
 		}
@@ -160,6 +151,7 @@ func main() {
 				if ticker, ok := technicalInsights[currStock.TickerSymbol].(map[string]interface{}); ok {
 
 					if instrumentInfo, ok := ticker["instrumentInfo"].(map[string]interface{}); ok {
+
 						// Capture stock short term outlook from script tag
 						shortTermOutlook := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["shortTermOutlook"].(map[string]interface{})["direction"])
 						currStock.StockPerformanceOutlookShort = shortTermOutlook
@@ -188,10 +180,10 @@ func main() {
 						secLongTermOutlook := fmt.Sprintf("%v", instrumentInfo["technicalEvents"].(map[string]interface{})["longTermOutlook"].(map[string]interface{})["sectorDirection"])
 						currStock.SectorPerformanceOutlookLong = secLongTermOutlook
 					} else {
-							log.Println(currStock.TickerSymbol, ": No instrumentInfo in Source")
+						log.Println(currStock.TickerSymbol, ": No instrumentInfo in Source")
 					}
 				} else {
-					if strings.Contains(scriptTag, "LOAD_TECH_INSIGHTS_FAIL") {
+					if strings.Contains(stockDataScriptTag, "LOAD_TECH_INSIGHTS_FAIL") {
 						log.Println(currStock.TickerSymbol, ": COULD NOT LOAD RESEARCH PAGE STORE... SKIP")
 					} else {
 						log.Println(currStock.TickerSymbol, ": No Ticker in Source")
@@ -205,12 +197,14 @@ func main() {
 		}
 	})
 
-	c.Visit("https://finance.yahoo.com/calendar/earnings?from=2021-02-28&to=2021-03-06&day=2021-03-04")
+	c.Visit("https://finance.yahoo.com/calendar/earnings?from=2021-03-07&to=2021-03-13&day=2021-03-12")
 	c.Wait()
 
 	fmt.Println("Total Stocks: ", len(stockData))
 	for _, v := range stockData {
 		fmt.Println(v.TickerSymbol, " - ", v.Url)
+		fmt.Println(v.TickerSymbol, " - Next Earnings Call Time: ", v.NextEarningsCallTime)
+		fmt.Println(v.TickerSymbol, " - EPS Estimate: ", v.NextEarningsEstimate)
 		fmt.Println(v.TickerSymbol, " - Current Price: ", v.CurrentPrice)
 		fmt.Println(v.TickerSymbol, " - Previous Day Volume: ", v.PrevDayVolume)
 		fmt.Println(v.TickerSymbol, " - Avg. Volume: ", v.AvgVolume)
@@ -222,4 +216,15 @@ func main() {
 		fmt.Println(v.TickerSymbol, " - Sector Performance (long): ", v.SectorPerformanceOutlookLong)
 		fmt.Println(v.TickerSymbol, " - Stock Performance (long): ", v.StockPerformanceOutlookLong)
 	}
+
+	fmt.Println("-----------------------")
+	fmt.Println("Today's List of Stock Buys:")
+	fmt.Println("-----------------------")
+
+	for _, v := range stockData{
+		if v.SectorPerformanceOutlookShort == "Bullish" && v.StockPerformanceOutlookShort == "Bullish" && v.NextEarningsCallTime == "After Market Close"{
+			fmt.Println(v.TickerSymbol, "-", "https://finance.yahoo.com" + v.Url)
+		}
+	}
+
 }
